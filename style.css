@@ -49,3 +49,9 @@ body {
 .message img.emoji {
   width: 20px;
 }
+
+.alert {
+  background-color: black;
+  padding: 10px;
+  color: rgb(29, 201, 249);
+}
