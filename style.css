@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css?family=Fredoka+One");
+body {
+  
+  color: #efeff1;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 18px;
+  overflow: hidden;
+  background-color: #0e0e10;
+}
+
+#chat {
+  position: absolute;
+  bottom: 10px;
+  width: 365px;
+}
+
+.chat-line {
+  overflow: hidden;
+  max-height: 0px;
+  transition: opacity 2s, max-height 1s, margin-top 1s;
+  border-radius: 10px;
+}
+.chat-line.visible {
+  margin-top: 10px;
+  max-height: 500px;
+  transition: opacity 2s, max-height 1s, margin-top 300ms;
+}
+.chat-line .chat-line-inner {
+  padding: 2px;
+  overflow-wrap: break-word;
+}
+.chat-line .chat-line-inner .badges img.badge {
+  margin-right: 6px;
+  vertical-align: text-bottom;
+  width: 18px;
+  height: 18px;
+}
+.chat-line .chat-line-inner.admin .message {
+  opacity: 0.4;
+}
+
+.user-name {
+  color: inherit;
+}
+
+.message img {
+  vertical-align: text-bottom;
+}
+.message img.emoji {
+  width: 20px;
+}
