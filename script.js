@@ -10,7 +10,7 @@ Clips
 
 
 const params = new URLSearchParams(window.location.search);
-const chatchannel = params.get('channel') || ['guude'];
+const chatchannel = params.get('channel') || ['bikeyboygang'];
 
 const chatEle = document.getElementById('chat');
 const twitchBadgeCache = {
@@ -417,9 +417,53 @@ function addListeners() {
     userstate.name = name;
     showMessage({ chan, type: 'chat', message, data: userstate });
   }
+  function handleRaid(channel, username, viewers) {
+    if(username && viewers == true) {
+      console.log(viewers);
+      showMessage({ type: 'alert', message: username + ' has raided with 1 viewer!' });
+    }
+    if (username && !viewers == true) {
+      showMessage({ type: 'alert', message: username + ' has raided with ' + viewers.toString() + ' viewers!' });
+    }
+  }
+  function handleResub(channel, username, months, message, userstate, methods) {
+    let chatMessage = username + " has resubscribed for " + userstate["msg-param-cumulative-months"] + " months";
+    if (!message == null) {
+      chatMessage = chatMessage + ": " + message
+    }
+    showMessage({ type: 'alert', message: chatMessage });
+  }
+  function handleSub (channel, username, method, message, userstate) {
+    let chatMessage = username + " has subscribed";
+    if (!message == null) {
+      chatMessage = chatMessage + ": " + message;
+    }
+    showMessage({ type: 'alert', message: chatMessage });
+  }
+  function handleSubGift (channel, username, streakMonths, recipient, methods, userstate) {
+    let chatMessage = username + " has gifted a subscription to " + recipient;
+    if(userstate["msg-param-sender-count"]) {
+      chatMessage = chatMessage + ". They have gifted " + userstate["msg-param-sender-count"] + " in the channel."
+    }
+    showMessage({ type: 'alert', message: chatMessage });
+  }
+  function handleAnonUpgrade (channel, username, userstate) {
+    let chatMessage = username + " is continuing the Gift Sub they got from an anonymous user";
+    showMessage({ type: 'alert', message: chatMessage });
+  }
+  function handleUpgrade (channel, username, sender, userstate) {
+    let chatMessage = username + " is continuing the Gift Sub they got from " + sender;
+    showMessage({ type: 'alert', message: chatMessage });
+  }
 
   client.on('message', handleMessage);
   client.on('cheer', handleMessage);
+  client.on('raided', handleRaid);
+  client.on('resub', handleResub);
+  client.on('subscription', handleSub);
+  client.on('subgift', handleSubGift);
+  client.on('anongiftpaidupgrade', handleAnonUpgrade);
+  client.on('giftpaidupgrade', handleUpgrade);
 
   client.on('join', (channel, username, self) => {
     if (!self) {
@@ -567,6 +611,15 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     messageEle.innerText = message;
 
     chatLine.appendChild(messageEle);
+  } else
+  if (type === 'alert') {
+    chatLine_.classList.add('alert');
+
+    let messageEle = document.createElement('span');
+    messageEle.classList.add('message');
+    messageEle.innerText = message;
+
+    chatLine.appendChild(messageEle);
   }
 
   chatEle.appendChild(chatLine_);
@@ -585,7 +638,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       }
     }, timeout);
   }
-  setTimeout(() => window.scrollTo(0,document.body.scrollHeight 10000), 200);
+  setTimeout(() => window.scrollTo(0,document.body.scrollHeight + 10000), 200);
 }
 
 function handleEmotes(channel, emotes, message) {
