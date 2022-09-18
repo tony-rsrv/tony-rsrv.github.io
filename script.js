@@ -10,7 +10,7 @@ Clips
 
 
 const params = new URLSearchParams(window.location.search);
-const chatchannel = params.get('channel') || ['bikeyboygang'];
+const chatchannel = params.get('channel') || ['guude', 'guude'];
 //console.log(chatchannel);
 
 const chatEle = document.getElementById('chat');
@@ -360,7 +360,7 @@ if (testing) {
 } else
 {
   client = new tmi.client({
-    // options: { debug: true },
+    options: { debug: true },
     connection: {
       reconnect: true,
       secure: true },
@@ -701,8 +701,8 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       }
     }, timeout);
   }
-  setTimeout(() => window.scrollTo(0,document.body.scrollHeight + 10000), 200);
-  window.scrollTo(0,document.body.scrollHeight + 10000)
+  // setTimeout(() => window.scrollTo(0,document.body.scrollHeight + 10000), 200);
+  // window.scrollTo(0,document.body.scrollHeight + 10000)
 }
 
 function handleEmotes(channel, emotes, message) {
