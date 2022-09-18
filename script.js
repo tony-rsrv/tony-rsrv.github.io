@@ -11,6 +11,7 @@ Clips
 
 const params = new URLSearchParams(window.location.search);
 const chatchannel = params.get('channel') || ['bikeyboygang'];
+console.log(chatchannel);
 
 const chatEle = document.getElementById('chat');
 const twitchBadgeCache = {
@@ -364,7 +365,7 @@ if (testing) {
       reconnect: true,
       secure: true },
 
-    channels: ['guude'] });
+    channels: [chatchannel] });
 
   addListeners();
   client.connect();
@@ -427,21 +428,58 @@ function addListeners() {
     }
   }
   function handleResub(channel, username, months, message, userstate, methods) {
-    let chatMessage = username + " has resubscribed for " + userstate["msg-param-cumulative-months"] + " months";
+    let subTier = methods.plan;
+    if (subTier == 1000) {
+      subTier = '1';
+    }
+    if (subTier == 2000) {
+      subTier = '2';
+    }
+    if (subTier == 3000) {
+      subTier = '3';
+    }
+    let chatMessage = username + " has resubscribed at Tier " + subTier + " for " + userstate["msg-param-cumulative-months"] + " months";
+    if (subTier == "Prime") {
+      chatMessage = username + " has resubscribed with Prime for " + userstate["msg-param-cumulative-months"] + " months";
+    }
     if (!message == null) {
       chatMessage = chatMessage + ": " + message
     }
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleSub (channel, username, method, message, userstate) {
-    let chatMessage = username + " has subscribed";
+    let subTier = method.plan;
+    if (subTier == 1000) {
+      subTier = '1';
+    }
+    if (subTier == 2000) {
+      subTier = '2';
+    }
+    if (subTier == 3000) {
+      subTier = '3';
+    }
+    let chatMessage = username + " has subscribed at Tier " + subTier;
+    if (subTier == "Prime") {
+      chatMessage = username + " has subscribed with Prime";
+    }
     if (!message == null) {
       chatMessage = chatMessage + ": " + message;
     }
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleSubGift (channel, username, streakMonths, recipient, methods, userstate) {
-    let chatMessage = username + " has gifted a subscription to " + recipient;
+    console.log(methods);
+    let subTier = methods.plan;
+    if (subTier == 1000) {
+      subTier = '1';
+    }
+    if (subTier == 2000) {
+      subTier = '2';
+    }
+    if (subTier == 3000) {
+      subTier = '3';
+    }
+    let chatMessage = username + " has gifted a Tier " + subTier + " subscription to " + recipient;
     if(userstate["msg-param-sender-count"]) {
       chatMessage = chatMessage + ". They have gifted " + userstate["msg-param-sender-count"] + " in the channel."
     }
@@ -455,9 +493,24 @@ function addListeners() {
     let chatMessage = username + " is continuing the Gift Sub they got from " + sender;
     showMessage({ type: 'alert', message: chatMessage });
   }
+  function handleCheer(channel, userstate, message, fromSelf) {
+    if (chatFilter.test(message)) {
+      testing && console.log(message);
+      return;
+    }
+
+    let chan = getChan(channel);
+    let name = userstate['display-name'] || userstate.username;
+    if (/[^\w]/g.test(name)) {
+      name += ` (${userstate.username})`;
+    }
+    userstate.name = name;
+    showMessage({ chan, type: 'chat', message: message + userstate.bits, data: userstate });
+  }
+
 
   client.on('message', handleMessage);
-  client.on('cheer', handleMessage);
+  client.on('cheer', handleCheer);
   client.on('raided', handleRaid);
   client.on('resub', handleResub);
   client.on('subscription', handleSub);
