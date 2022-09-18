@@ -691,7 +691,6 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       }
     }, timeout);
   }
-  setTimeout(() => window.scrollTo(0,document.body.scrollHeight + 10000), 200);
 }
 
 function handleEmotes(channel, emotes, message) {

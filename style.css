@@ -10,7 +10,6 @@ body {
 
 #chat {
   /* position: absolute; */
-  bottom: 10px;
   width: 365px;
 }
 
@@ -54,4 +53,11 @@ body {
   background-color: black;
   padding: 10px;
   color: rgb(29, 201, 249);
+}
+
+.scroller {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: auto;
+  height: 99vh;
 }
