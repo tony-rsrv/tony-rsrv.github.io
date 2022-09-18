@@ -56,8 +56,8 @@ body {
 }
 
 .scroller {
-  display: flex;
+  /* display: flex;
   flex-direction: column-reverse;
   overflow: auto;
-  height: 99vh;
+  height: 99vh; */
 }
