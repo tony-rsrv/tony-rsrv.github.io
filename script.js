@@ -2,6 +2,11 @@ const params = new URLSearchParams(window.location.search);
 const chatchannel = params.get('channel') ? params.get('channel').split(',') : ['guude', 'arkas'];
 const usersIgnored = params.get('ignore') ? params.get('ignore').split(',') : [];
 const alerts = params.get('alerts') === 'true' || 'false' ? (params.get('alerts') === 'true') : true;
+const transparent = params.get('transparent') === 'true' ? true : false;
+
+if (transparent) {
+  document.body.classList.add('half-transparent');;
+}
 
 const chatEle = document.getElementById('chat');
 const twitchBadgeCache = {

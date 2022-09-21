@@ -5,7 +5,11 @@ body {
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 18px;
   /* overflow: hidden; */
-  background-color: #0e0e107b;
+  background-color: rgb(14, 14, 16);
+}
+
+.half-transparent {
+  background-color: rgba(0, 0, 0, 0.5)!important;
 }
 
 #chat {
