@@ -18,7 +18,6 @@ body {
   width: 365px;
   background-color: rgb(14, 14, 16);
   padding: 8px;
-  height: 99vh;
 }
 .channel-name {
   font-size: 12px;
@@ -64,10 +63,7 @@ body {
 }
 
 .scroller {
-  /* display: flex;
-  flex-direction: column-reverse;
-  overflow: auto;
-  height: 99vh; */
+  height: 99vh;
 }
 
 img {
