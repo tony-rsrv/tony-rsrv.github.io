@@ -3,10 +3,16 @@ const chatchannel = params.get('channel') ? params.get('channel').split(',') : [
 const usersIgnored = params.get('ignore') ? params.get('ignore').split(',') : [];
 const alerts = params.get('alerts') === 'true' || 'false' ? (params.get('alerts') === 'true') : true;
 const transparent = params.get('transparent') === 'true' ? true : false;
+const width = params.get('width') === 'full' ? true : false;
 
 if (transparent) {
   var element = document.getElementById('chat');
   element.classList.add('half-transparent');
+}
+
+if (width) {
+  var element = document.getElementById('chat');
+  element.classList.add('full-width');
 }
 
 const chatEle = document.getElementById('chat');
