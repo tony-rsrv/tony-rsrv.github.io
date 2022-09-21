@@ -1,17 +1,7 @@
-/* Helpful information:
-
-Clips
-	Endpoint: https://api.twitch.tv/kraken/clips/ReliableSplendidInternPogChamp?on_site=1&api_version=5
-	Exmpample Clip: https://clips.twitch.tv/ReliableSplendidInternPogChamp
-	Missing thumbnail: https://clips-media-assets.twitch.tv/404-preview-86x45.jpg
-	Broken thumbnail: https://clips-media-assets.twitch.tv/vod-153090723-offset-1928.5-60-preview-1920x1080.jpg
-
-*/
-
-
 const params = new URLSearchParams(window.location.search);
-const chatchannel = params.get('channel') || 'guude';
-//console.log(chatchannel);
+const chatchannel = params.get('channel') ? params.get('channel').split(',') : ['guude', 'arkas'];
+const usersIgnored = params.get('ignore') ? params.get('ignore').split(',') : [];
+const alerts = params.get('alerts') === 'true' || 'false' ? (params.get('alerts') === 'true') : true;
 
 const chatEle = document.getElementById('chat');
 const twitchBadgeCache = {
@@ -29,9 +19,6 @@ const krakenBase = 'https://api.twitch.tv/kraken/';
 const krakenClientID = '4g5an0yjebpf93392k4c5zll7d7xcec';
 
 const chatFilters = [
-// '\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF', // Partial Latin-1 Supplement
-// '\u0100-\u017F', // Latin Extended-A
-// '\u0180-\u024F', // Latin Extended-B
 '\u0250-\u02AF', // IPA Extensions
 '\u02B0-\u02FF', // Spacing Modifier Letters
 '\u0300-\u036F', // Combining Diacritical Marks
@@ -44,9 +31,7 @@ const chatFilters = [
 '\u2580-\u259F', // Block Elements
 '\u25A0-\u25FF', // Geometric Shapes
 '\u2600-\u26FF', // Miscellaneous Symbols
-// '\u2700-\u27BF', // Dingbats
 '\u2800-\u28FF' // Braille
-// '\u2C60-\u2C7F', // Latin Extended-C
 ];
 const chatFilter = new RegExp(`[${chatFilters.join('')}]`);
 
@@ -65,14 +50,11 @@ if (testing) {
 
   then(({ streams }) => {
     client = new tmi.client({
-      // options: { debug: true },
       connection: {
         reconnect: true,
         secure: true },
 
       channels: chatchannel
-      //channels: [ 'geocym','VRFlad','Casual_ObserVR','lyfesaver74' ],
-      //channels: streams.map(n => n.channel.name)
     });
     addListeners();
     client.connect();
@@ -83,9 +65,15 @@ if (testing) {
     options: { debug: false },
     connection: {
       reconnect: true,
-      secure: true },
+      secure: true,
+      timeout: 30
+     },
 
-    channels: [chatchannel] });
+    channels: chatchannel,
+  identity: {
+    username: 'tndplays',
+    password: 'oauth:r5ykfyexjsguusrmefektouko7i91s'
+  } });
 
   addListeners();
   client.connect();
@@ -129,6 +117,7 @@ function addListeners() {
       testing && console.log(message);
       return;
     }
+    if (usersIgnored.includes(userstate.username)) return;
 
     let chan = getChan(channel);
     let name = userstate['display-name'] || userstate.username;
@@ -140,10 +129,9 @@ function addListeners() {
   }
   function handleRaid(channel, username, viewers) {
     if(username && viewers == true) {
-      //console.log(viewers);
       showMessage({ type: 'alert', message: username + ' has raided with 1 viewer!' });
     }
-    if (username && !viewers == true) {
+    else {
       showMessage({ type: 'alert', message: username + ' has raided with ' + viewers.toString() + ' viewers!' });
     }
   }
@@ -188,7 +176,6 @@ function addListeners() {
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleSubGift (channel, username, streakMonths, recipient, methods, userstate) {
-    //console.log(methods);
     let subTier = methods.plan;
     if (subTier == 1000) {
       subTier = '1';
@@ -218,32 +205,35 @@ function addListeners() {
       testing && console.log(message);
       return;
     }
-
     let chan = getChan(channel);
     let name = userstate['display-name'] || userstate.username;
     if (/[^\w]/g.test(name)) {
       name += ` (${userstate.username})`;
     }
     userstate.name = name;
-    if (userstate.bits > 1) {
-      let chatMessage = userstate.name + " has cheered " + userstate.bits + " bits";
-      showMessage({ type: 'alert', message: chatMessage });
-    } else {
-      let chatMessage = userstate.name + " has cheered " + userstate.bits + " bit";
-      showMessage({ type: 'alert', message: chatMessage });
-    }
+    if (alerts) {
+      if (userstate.bits > 1) {
+        let chatMessage = userstate.name + " has cheered " + userstate.bits + " bits";
+        showMessage({ type: 'alert', message: chatMessage });
+      } else {
+        let chatMessage = userstate.name + " has cheered " + userstate.bits + " bit";
+        showMessage({ type: 'alert', message: chatMessage });
+      }
+  }
     showMessage({ chan, type: 'chat', message: message, data: userstate });
   }
 
 
   client.on('message', handleMessage);
   client.on('cheer', handleCheer);
+  if (alerts) {
   client.on('raided', handleRaid);
   client.on('resub', handleResub);
   client.on('subscription', handleSub);
   client.on('subgift', handleSubGift);
   client.on('anongiftpaidupgrade', handleAnonUpgrade);
   client.on('giftpaidupgrade', handleUpgrade);
+  }
 
   client.on('join', (channel, username, self) => {
     if (!self) {
@@ -353,7 +343,11 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
         }
       }, []);
     }
-
+    let chanEle = document.createElement('span');
+    if (chatchannel.length > 1) {
+      chanEle.classList.add('channel-name');
+      chanEle.innerText = chan;
+    }
     let nameEle = document.createElement('span');
     nameEle.classList.add('user-name');
     nameEle.innerText = data.name;
@@ -362,7 +356,6 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     }
     if (typeof data.color == 'string') {
     nameEle.style.color = data.color;
-    //console.log(data.color);
     } else {
       nameEle.style.color = userColors[data.name];
     }
@@ -370,16 +363,14 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     let colonEle = document.createElement('span');
     colonEle.classList.add('message-colon');
     colonEle.innerText = ': ';
-
     let messageEle = document.createElement('span');
     messageEle.classList.add('message');
-
     let finalMessage = handleEmotes(chan, data.emotes || {}, message);
-    if (data.emotes) console.log(data.emotes);
     addEmoteDOM(messageEle, finalMessage);
 
+    if (chatchannel.length > 1) chatLine.appendChild(chanEle);
     chatLine.appendChild(badgeEle);
-    chatLine.appendChild(spaceEle);
+    // chatLine.appendChild(spaceEle);
     chatLine.appendChild(nameEle);
     chatLine.appendChild(colonEle);
     chatLine.appendChild(messageEle);
@@ -402,7 +393,6 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
 
     chatLine.appendChild(messageEle);
   }
-
   chatEle.appendChild(chatLine_);
 
   setTimeout(() => chatLine_.classList.add('visible'), 100);
@@ -435,6 +425,15 @@ function handleEmotes(channel, emotes, message) {
       let [a, b] = n.split('-');
       let start = +a;
       let end = +b + 1;
+      if (id.includes('emotesv2_')) {
+        return {
+          start,
+          end,
+          id,
+          code: message.slice(start, end),
+          type: ['twitch', 'emotev2'] };
+  
+      }
       return {
         start,
         end,
@@ -497,6 +496,11 @@ function addEmoteDOM(ele, data) {
           out.setAttribute('src', `https://static-cdn.jtvnw.net/emoticons/v1/${n.id}/1.0`);
           out.setAttribute('alt', code);
         }
+        if (subtype === 'emotev2') {
+          out = document.createElement('img');
+          out.setAttribute('src', `https://static-cdn.jtvnw.net/emoticons/v2/${n.id}/default/dark/1.0`);
+          out.setAttribute('alt', code);
+        }
       } else
       if (type === 'bttv') {
         out = document.createElement('img');
@@ -541,11 +545,6 @@ function kraken(opts) {
 }
 
 function twitchNameToUser(username) {
-  // return fetch(`https://decapi.me/twitch/id/${username}`, {
-  //   headers: {
-  //     "Accept": "application/json"
-  //   }
-  // }).then(res => res.json());
   return request({
     base: `https://decapi.me/twitch/id/${username}`,
     headers: {
@@ -581,7 +580,6 @@ async function getBTTVEmotes(channel) {
     endpoint }).
 
   then(({ channelEmotes, status, urlTemplate }) => {
-    //console.log(channelEmotes);
     if (status === 404) return;
     if (!channelEmotes) return;
     channelEmotes.forEach(n => {
@@ -598,4 +596,41 @@ async function getBTTVEmotes(channel) {
       }
     });
   });
+}
+
+function replaceCheerWithImgTag(text) {
+  let output = text;
+  const targetStrArr = text.match(/(^|\s)Cheer\d+/g) || [];
+  const targetNumArr = targetStrArr.map((item) =>
+    Number(item.replace("Cheer", ""))
+  );
+  const getImgTag = function (n) {
+    let imgNum = 0;
+    if (n >= 1 && n <= 99) {
+      imgNum = 1;
+    } else if (n >= 100 && n <= 999) {
+      imgNum = 100;
+    } else if (n >= 1000 && n <= 4999) {
+      imgNum = 1000;
+    } else if (n >= 5000 && n <= 9999) {
+      imgNum = 5000;
+    } else if (n >= 10000 && n <= 99999) {
+      imgNum = 10000;
+    } else if (n >= 100000) {
+      imgNum = 100000;
+    }
+    return (
+      ' <img src="https://d3aqoihi2n8ty8.cloudfront.net/actions/cheer/dark/animated/' +
+      imgNum +
+      '/1.gif">'
+    );
+  };
+  targetStrArr.forEach(function (word, i) {
+    output = output.replace(word, getImgTag(targetNumArr[i]) + targetNumArr[i]);
+  });
+  return output;
+}
+
+function appendToDoc(str){
+  document.body.innerHTML += (str +"<br><br>")
 }

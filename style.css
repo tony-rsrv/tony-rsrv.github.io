@@ -5,14 +5,18 @@ body {
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 18px;
   /* overflow: hidden; */
-  background-color: #0e0e10;
+  background-color: #0e0e107b;
 }
 
 #chat {
   /* position: absolute; */
   width: 365px;
 }
-
+.channel-name {
+  font-size: 12px;
+  opacity: .6;
+  margin-right: 5px;
+}
 .chat-line {
   overflow: hidden;
   max-height: 0px;
@@ -29,8 +33,7 @@ body {
   overflow-wrap: break-word;
 }
 .chat-line .chat-line-inner .badges img.badge {
-  margin-right: 6px;
-  vertical-align: text-bottom;
+  margin-right: 2px;
   width: 18px;
   height: 18px;
 }
@@ -42,9 +45,6 @@ body {
   color: inherit;
 }
 
-.message img {
-  vertical-align: text-bottom;
-}
 .message img.emoji {
   width: 20px;
 }
@@ -60,4 +60,8 @@ body {
   flex-direction: column-reverse;
   overflow: auto;
   height: 99vh; */
+}
+
+img {
+  vertical-align: middle;
 }
