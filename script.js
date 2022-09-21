@@ -13,6 +13,7 @@ if (transparent) {
 if (width) {
   var element = document.getElementById('chat');
   element.classList.add('full-width');
+  document.body.style.backgroundColor = 'rgb(14, 14, 16)';
 }
 
 const chatEle = document.getElementById('chat');
