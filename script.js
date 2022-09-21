@@ -78,8 +78,7 @@ if (testing) {
     options: { debug: false },
     connection: {
       reconnect: true,
-      secure: true,
-      timeout: 30
+      secure: true
      },
 
     channels: chatchannel,
