@@ -6,6 +6,7 @@ body {
   font-size: 18px;
   /* overflow: hidden; */
   background-color: transparent;
+  margin: 0;
 }
 
 .half-transparent {
@@ -16,6 +17,8 @@ body {
   /* position: absolute; */
   width: 365px;
   background-color: rgb(14, 14, 16);
+  padding: 8px;
+  height: 99vh;
 }
 .channel-name {
   font-size: 12px;
