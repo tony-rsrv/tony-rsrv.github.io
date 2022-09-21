@@ -3,7 +3,7 @@ body {
   
   color: #efeff1;
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 2.1vh;
+  font-size: 18px;
   /* overflow: hidden; */
   background-color: transparent;
   margin: 0;
@@ -64,6 +64,7 @@ body {
 
 .full-width {
   width: 100%!important;
+  font-size: 2.1vh;
 }
 
 
