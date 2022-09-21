@@ -20,7 +20,7 @@ body {
   padding: 8px;
 }
 .channel-name {
-  font-size: 12px;
+  font-size: 1.3vh;
   opacity: .6;
   margin-right: 5px;
 }
@@ -41,8 +41,8 @@ body {
 }
 .chat-line .chat-line-inner .badges img.badge {
   margin-right: 2px;
-  width: 18px;
-  height: 18px;
+  width: 2vh;
+  height: 2vh;
 }
 .chat-line .chat-line-inner.admin .message {
   opacity: 0.4;
