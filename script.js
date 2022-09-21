@@ -82,10 +82,7 @@ if (testing) {
      },
 
     channels: chatchannel,
-  identity: {
-    username: 'tndplays',
-    password: 'oauth:r5ykfyexjsguusrmefektouko7i91s'
-  } });
+ });
 
   addListeners();
   client.connect();
