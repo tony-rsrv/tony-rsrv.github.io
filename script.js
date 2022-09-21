@@ -5,7 +5,8 @@ const alerts = params.get('alerts') === 'true' || 'false' ? (params.get('alerts'
 const transparent = params.get('transparent') === 'true' ? true : false;
 
 if (transparent) {
-  document.body.classList.add('half-transparent');;
+  var element = document.getElementById('chat');
+  element.classList.add('half-transparent');
 }
 
 const chatEle = document.getElementById('chat');

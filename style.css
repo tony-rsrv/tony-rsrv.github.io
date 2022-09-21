@@ -5,7 +5,7 @@ body {
   font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 18px;
   /* overflow: hidden; */
-  background-color: rgb(14, 14, 16);
+  background-color: transparent;
 }
 
 .half-transparent {
@@ -15,6 +15,7 @@ body {
 #chat {
   /* position: absolute; */
   width: 365px;
+  background-color: rgb(14, 14, 16);
 }
 .channel-name {
   font-size: 12px;
