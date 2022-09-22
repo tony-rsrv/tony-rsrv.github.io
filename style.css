@@ -16,7 +16,7 @@ body {
 #chat {
   /* position: absolute; */
   width: 365px;
-  background-color: rgb(14, 14, 16);
+  background-color: rgb(14, 14, 16, 0.5);
   padding: 8px;
 }
 .channel-name {
@@ -69,6 +69,10 @@ body {
 
 .full-width .channel-name {
   font-size: 1.3vh!important; 
+}
+
+.full-width #chat {
+  background-color: rgb(14, 14, 16)!important; 
 }
 
 .full-width .chat-line .chat-line-inner .badges img.badge {
