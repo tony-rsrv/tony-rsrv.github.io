@@ -4,7 +4,7 @@ const usersIgnored = params.get('ignore') ? params.get('ignore').split(',') : []
 const alerts = params.get('alerts') === 'false' ? false : true;
 const transparent = params.get('transparent') === 'true' ? true : false;
 const width = params.get('width') === 'full' ? true : false;
-// const lines = typeof +params.get('lines') === 'number' ? params.get('lines') : 150;
+const lines = typeof +params.get('lines') === 'number' && +params.get('lines') > 1 ? params.get('lines') : 150;
 
 if (transparent) {
   var element = document.getElementById('chat');
@@ -407,7 +407,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
 
   setTimeout(() => chatLine_.classList.add('visible'), 100);
 
-  if (chatEle.childElementCount > 150) {
+  if (chatEle.childElementCount > lines) {
     chatEle.removeChild(chatEle.children[0]);
   }
 
