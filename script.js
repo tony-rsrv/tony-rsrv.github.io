@@ -26,8 +26,7 @@ if (font) {
     }
   var myElements = document.querySelectorAll(".badge");
 for (var i= 0; i < myElements.length ; i++) { 
-   myElements[i].style.height = "20px";
-   myElements[i].style.width = "20px"
+   myElements[i].setAttribute('style', 'height:' + font + 'px' + '!important; width: ' + font +'px!important;');
 }
 }
 
