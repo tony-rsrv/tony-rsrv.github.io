@@ -5,6 +5,7 @@ const alerts = params.get('alerts') === 'false' ? false : true;
 const transparent = params.get('transparent') === 'true' ? true : false;
 const width = params.get('width') === 'full' ? true : false;
 const lines = typeof +params.get('lines') === 'number' && +params.get('lines') > 1 ? params.get('lines') : 150;
+const font = typeof +params.get('font') === 'number' && +params.get('font') > 1 ? params.get('lines') : false;
 
 if (transparent) {
   var element = document.getElementById('chat');
@@ -15,6 +16,10 @@ if (width) {
   var element = document.getElementById('chat');
   element.classList.add('full-width');
   document.body.style.backgroundColor = 'rgb(14, 14, 16)';
+}
+
+if (font) {
+  document.body.style.backgroundColor = font;
 }
 
 const chatEle = document.getElementById('chat');
