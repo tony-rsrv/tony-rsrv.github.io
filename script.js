@@ -19,8 +19,7 @@ if (width) {
 }
 
 if (font) {
-  var element = document.getElementById('chat');
-  document.body.setAttribute('style', 'font-size:' + font + 'px' + '!important');;
+  document.getElementById('chat').setAttribute('style', 'font-size:' + font + 'px' + '!important');;
 }
 
 const chatEle = document.getElementById('chat');
