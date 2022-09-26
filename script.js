@@ -24,10 +24,8 @@ if (font) {
     for(i = 0; i < elems.length; i++) {
         elems[i].setAttribute('style', 'font-size:' + (font - 4) + 'px' + '!important');
     }
-  var elems2 = document.getElementsByClassName('badges');
-    for(i = 0; i < elems2.length; i++) {
-        elems2[i].img.setAttribute('style', 'width:' + font + 'px' + '!important; height: ' + font + 'px!important;');
-    }
+  document.img.style.height = font + 'px';
+  document.img.style.width = font + 'px';
 }
 
 const chatEle = document.getElementById('chat');
