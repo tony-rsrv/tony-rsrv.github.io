@@ -19,7 +19,11 @@ if (width) {
 }
 
 if (font) {
-  document.getElementById('chat').setAttribute('style', 'font-size:' + font + 'px' + '!important');;
+  document.getElementById('chat').setAttribute('style', 'font-size:' + font + 'px' + '!important');
+  var elems = document.getElementsByClassName('channel-name');
+    for(i = 0; i < elems.length; i++) {
+        elems[i].setAttribute('style', 'font-size:' + (font - 4) + 'px' + '!important');
+    }
 }
 
 const chatEle = document.getElementById('chat');
