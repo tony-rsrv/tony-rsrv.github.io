@@ -24,8 +24,11 @@ if (font) {
     for(i = 0; i < elems.length; i++) {
         elems[i].setAttribute('style', 'font-size:' + (font - 4) + 'px' + '!important');
     }
-  document.images.style.height = font + 'px';
-  document.images.style.width = font + 'px';
+  var myElements = document.querySelectorAll(".badge");
+for (var i= 0; i < myElements.length ; i++) { 
+   myElements[i].style.height = "20px";
+   myElements[i].style.width = "20px"
+}
 }
 
 const chatEle = document.getElementById('chat');
