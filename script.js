@@ -355,8 +355,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
           ele.setAttribute('alt', type);
           ele.classList.add('badge');
           if (font) {
-            ele.style.height = font + "px";
-            ele.style.width = font + "px";
+            ele.setAttribute('style', 'height: ' + font + 'px!important; width: ' + font + 'px!important;');
           }
           badgeEle.appendChild(ele);
         }
@@ -367,8 +366,9 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       chanEle.classList.add('channel-name');
       chanEle.innerText = chan;
       if (font) {
-            chanEle.style.fontSize = font + "px";
-          }
+        let badgeSize = font - 4;
+      chanEle.setAttribute('style', 'font-size: ' + badgeSize + 'px!important;');
+      }
     }
     let nameEle = document.createElement('span');
     nameEle.classList.add('user-name');
