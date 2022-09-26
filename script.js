@@ -26,7 +26,7 @@ if (font) {
     }
   var elems2 = document.getElementsByClassName('badges');
     for(i = 0; i < elems2.length; i++) {
-        elems2[i].setAttribute('style', 'font-size:' + font + 'px' + '!important');
+        elems2[i].img.setAttribute('style', 'width:' + font + 'px' + '!important; height: ' + font + 'px!important;');
     }
 }
 
