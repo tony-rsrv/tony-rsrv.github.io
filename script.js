@@ -354,6 +354,10 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
           ele.setAttribute('badgeType', type);
           ele.setAttribute('alt', type);
           ele.classList.add('badge');
+          if (font) {
+            ele.style.height = font + "px";
+            ele.style.width = font + "px";
+          }
           badgeEle.appendChild(ele);
         }
       }, []);
@@ -362,6 +366,10 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     if (chatchannel.length > 1) {
       chanEle.classList.add('channel-name');
       chanEle.innerText = chan;
+      if (font) {
+            chanEle.style.height = font + "px";
+            chanEle.style.width = font + "px";
+          }
     }
     let nameEle = document.createElement('span');
     nameEle.classList.add('user-name');
