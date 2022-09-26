@@ -24,6 +24,10 @@ if (font) {
     for(i = 0; i < elems.length; i++) {
         elems[i].setAttribute('style', 'font-size:' + (font - 4) + 'px' + '!important');
     }
+  var elems2 = document.getElementsByClassName('badges');
+    for(i = 0; i < elems2.length; i++) {
+        elems2[i].setAttribute('style', 'font-size:' + font + 'px' + '!important');
+    }
 }
 
 const chatEle = document.getElementById('chat');
