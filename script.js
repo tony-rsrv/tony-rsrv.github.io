@@ -19,7 +19,7 @@ if (width) {
 }
 
 if (font) {
-  document.body.style.backgroundColor = font + "px";
+  document.body.style.fontSize = font + "px";
 }
 
 const chatEle = document.getElementById('chat');
