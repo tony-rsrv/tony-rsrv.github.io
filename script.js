@@ -367,8 +367,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       chanEle.classList.add('channel-name');
       chanEle.innerText = chan;
       if (font) {
-            chanEle.style.height = font + "px";
-            chanEle.style.width = font + "px";
+            chanEle.style.fontSize = font + "px";
           }
     }
     let nameEle = document.createElement('span');
