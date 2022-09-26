@@ -24,8 +24,8 @@ if (font) {
     for(i = 0; i < elems.length; i++) {
         elems[i].setAttribute('style', 'font-size:' + (font - 4) + 'px' + '!important');
     }
-  document.img.style.height = font + 'px';
-  document.img.style.width = font + 'px';
+  document.images.style.height = font + 'px';
+  document.images.style.width = font + 'px';
 }
 
 const chatEle = document.getElementById('chat');
