@@ -144,10 +144,10 @@ function addListeners() {
   }
   function handleRaid(channel, username, viewers) {
     if(username && viewers == true) {
-      showMessage({ type: 'alert', message: username + ' has raided with 1 viewer!' });
+      showMessage({ type: 'alert', message: username + ' has raided' + (chatchannel.length <= 1 ? "" : " " + channel) + ' with 1 viewer!' });
     }
     else {
-      showMessage({ type: 'alert', message: username + ' has raided with ' + viewers.toString() + ' viewers!' });
+      showMessage({ type: 'alert', message: username + ' has raided' + (chatchannel.length <= 1 ? "" : " " + channel) + ' with ' + viewers.toString() + ' viewers!' });
     }
   }
   function handleResub(channel, username, months, message, userstate, methods) {
@@ -161,9 +161,9 @@ function addListeners() {
     if (subTier == 3000) {
       subTier = '3';
     }
-    let chatMessage = username + " has resubscribed at Tier " + subTier + " for " + userstate["msg-param-cumulative-months"] + " months";
+    let chatMessage = username + " has resubscribed" + (chatchannel.length <= 1 ? "" : " to " + channel) + " at Tier " + subTier + " for " + userstate["msg-param-cumulative-months"] + " months";
     if (subTier == "Prime") {
-      chatMessage = username + " has resubscribed with Prime for " + userstate["msg-param-cumulative-months"] + " months";
+      chatMessage = username + " has resubscribed" + (chatchannel.length <= 1 ? "" : " to " + channel) + " with Prime for " + userstate["msg-param-cumulative-months"] + " months";
     }
     if (!message == null) {
       chatMessage = chatMessage + ": " + message
@@ -181,9 +181,9 @@ function addListeners() {
     if (subTier == 3000) {
       subTier = '3';
     }
-    let chatMessage = username + " has subscribed at Tier " + subTier;
+    let chatMessage = username + " has subscribed" + (chatchannel.length <= 1 ? "" : " to " + channel) + " at Tier " + subTier;
     if (subTier == "Prime") {
-      chatMessage = username + " has subscribed with Prime";
+      chatMessage = username + " has subscribed" + (chatchannel.length <= 1 ? "" : " to " + channel) + " with Prime";
     }
     if (!message == null) {
       chatMessage = chatMessage + ": " + message;
@@ -201,18 +201,18 @@ function addListeners() {
     if (subTier == 3000) {
       subTier = '3';
     }
-    let chatMessage = username + " has gifted a Tier " + subTier + " subscription to " + recipient;
+    let chatMessage = username + " has gifted a Tier " + subTier + " subscription to " + recipient + (chatchannel.length <= 1 ? "" : " in " + channel) + "'s channel";
     if(userstate["msg-param-sender-count"]) {
-      chatMessage = chatMessage + ". They have gifted " + userstate["msg-param-sender-count"] + " in the channel."
+      chatMessage = chatMessage + ". They have gifted " + userstate["msg-param-sender-count"] === true ? "1" : userstate["msg-param-sender-count"] + " in the channel."
     }
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleAnonUpgrade (channel, username, userstate) {
-    let chatMessage = username + " is continuing the Gift Sub they got from an anonymous user";
+    let chatMessage = username + " is continuing the Gift Sub they got from an anonymous user" + (chatchannel.length <= 1 ? "" : " in " + channel + "'s channel");
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleUpgrade (channel, username, sender, userstate) {
-    let chatMessage = username + " is continuing the Gift Sub they got from " + sender;
+    let chatMessage = username + " is continuing the Gift Sub they got from " + sender + (chatchannel.length <= 1 ? "" : " in " + channel + "'s channel");
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleCheer(channel, userstate, message, fromSelf) {
@@ -228,10 +228,10 @@ function addListeners() {
     userstate.name = name;
     if (alerts) {
       if (userstate.bits > 1) {
-        let chatMessage = userstate.name + " has cheered " + userstate.bits + " bits";
+        let chatMessage = userstate.name + " has cheered " + userstate.bits + " bits" + (chatchannel.length <= 1 ? "" : " in " + channel + "'s channel");
         showMessage({ type: 'alert', message: chatMessage });
       } else {
-        let chatMessage = userstate.name + " has cheered " + userstate.bits + " bit";
+        let chatMessage = userstate.name + " has cheered " + userstate.bits + " bit" + (chatchannel.length <= 1 ? "" : " in " + channel + "'s channel");
         showMessage({ type: 'alert', message: chatMessage });
       }
   }
