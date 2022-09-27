@@ -237,7 +237,20 @@ function addListeners() {
   }
     showMessage({ chan, type: 'chat', message: message, data: userstate });
   }
-
+  function handlePrimeUpgrade(channel, username, methods, tags) {
+    let subTier = methods.plan;
+    if (subTier == 1000) {
+      subTier = '1';
+    }
+    if (subTier == 2000) {
+      subTier = '2';
+    }
+    if (subTier == 3000) {
+      subTier = '3';
+    }
+    let chatMessage = username + " is upgrading their Prime Sub to a Tier " + subTier + " subscription" + (chatchannel.length <= 1 ? "" : " in " + channel + "'s channel");
+    showMessage({ type: 'alert', message: chatMessage });
+  }
 
   client.on('message', handleMessage);
   client.on('cheer', handleCheer);
@@ -248,6 +261,7 @@ function addListeners() {
   client.on('subgift', handleSubGift);
   client.on('anongiftpaidupgrade', handleAnonUpgrade);
   client.on('giftpaidupgrade', handleUpgrade);
+  client.on('primesubupgrade', handlePrimeUpgrade)
   }
 
   client.on('join', (channel, username, self) => {
