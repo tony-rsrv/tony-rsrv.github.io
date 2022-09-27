@@ -203,7 +203,7 @@ function addListeners() {
     }
     let chatMessage = username + " has gifted a Tier " + subTier + " subscription to " + recipient + (chatchannel.length <= 1 ? "" : " in " + channel) + "'s channel";
     if(userstate["msg-param-sender-count"]) {
-      chatMessage = chatMessage + ". They have gifted " + userstate["msg-param-sender-count"] === true ? "1" : userstate["msg-param-sender-count"] + " in the channel."
+      chatMessage = chatMessage + ". They have gifted a total of " + (userstate["msg-param-sender-count"] === true ? "1" : userstate["msg-param-sender-count"]) + " in the channel."
     }
     showMessage({ type: 'alert', message: chatMessage });
   }
