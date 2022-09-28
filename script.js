@@ -6,6 +6,11 @@ const transparent = params.get('transparent') === 'true' ? true : false;
 const width = params.get('width') === 'full' ? true : false;
 const lines = typeof +params.get('lines') === 'number' && +params.get('lines') > 1 ? params.get('lines') : 150;
 const font = typeof +params.get('font') === 'number' && +params.get('font') > 1 ? params.get('font') : false;
+const backgroundColor = '#141414';
+const mode = 1;
+const contrast = 4.5;
+const adjuster = new ColorAdjuster(backgroundColor, mode, contrast);
+const randomcolors = ["#0000FF", "#8A2BE2", "#5F9EA0", "#D2691E", "#FF7F50", "#1E90FF", "#B22222", "#DAA520", "#008000", "#FF69B4", "#FF4500", "#FF0000", "#2E8B57", "#00FF7F", "#9ACD32"];
 
 if (transparent) {
   var element = document.getElementById('chat');
@@ -388,10 +393,12 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     nameEle.classList.add('user-name');
     nameEle.innerText = data.name;
     if (!userColors[data.name]) {
-      userColors[data.name] = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+      const randomColor = Math.floor(Math.random() * randomcolors.length);
+      userColors[data.name] = randomcolors[randomColor];
     }
     if (typeof data.color == 'string') {
-    nameEle.style.color = data.color;
+    nameEle.style.color = adjuster.process(data.color);
+    
     } else {
       nameEle.style.color = userColors[data.name];
     }
@@ -670,3 +677,4 @@ function replaceCheerWithImgTag(text) {
 function appendToDoc(str){
   document.body.innerHTML += (str +"<br><br>")
 }
+
