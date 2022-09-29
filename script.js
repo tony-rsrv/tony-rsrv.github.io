@@ -424,6 +424,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     colonEle.innerText = ': ';
     let messageEle = document.createElement('span');
     messageEle.classList.add('message');
+    if (data['msg-id'] === 'highlighted-message') messageEle.classList.add('highlight-chat-message');
     let finalMessage = handleEmotes(chan, data.emotes || {}, message);
     addEmoteDOM(messageEle, finalMessage);
     if (data['first-msg'] === true) chatLine.appendChild(highlightedMessage);

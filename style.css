@@ -97,3 +97,7 @@ img {
   padding: 10px!important;
   background-color: #242424;
 }
+
+.highlight-chat-message {
+  background-color: #755ebc;
+}
