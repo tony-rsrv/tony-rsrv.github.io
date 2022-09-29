@@ -28,7 +28,6 @@ body {
   overflow: hidden;
   max-height: 0px;
   transition: opacity 2s, max-height 1s, margin-top 1s;
-  border-radius: 10px;
 }
 .chat-line.visible {
   margin-top: 10px;
@@ -71,8 +70,8 @@ body {
   font-size: 1.3vh!important; 
 }
 
-.full-width #chat {
-  background-color: rgb(14, 14, 16)!important; 
+#chat.full-width {
+  background-color: transparent!important; 
 }
 
 .full-width .chat-line .chat-line-inner .badges img.badge {
@@ -83,4 +82,18 @@ body {
 
 img {
   vertical-align: middle;
+}
+
+.highlighted-message-text {
+  font-size: .75em;
+  margin-bottom: 5px;
+  color: #c9c9c9;
+}
+.highlighted-message {
+  padding-bottom: 10px;
+    line-height: .5;
+}
+.highlight-message {
+  padding: 10px!important;
+  background-color: #242424;
 }

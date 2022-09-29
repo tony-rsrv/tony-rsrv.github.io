@@ -20,7 +20,7 @@ if (transparent) {
 if (width) {
   var element = document.getElementById('chat');
   element.classList.add('full-width');
-  document.body.style.backgroundColor = 'rgb(14, 14, 16)';
+  document.body.style.backgroundColor = '#141414';
 }
 
 if (font) {
@@ -133,6 +133,7 @@ function addListeners() {
   });
 
   function handleMessage(channel, userstate, message, fromSelf) {
+    console.log(userstate);
     if (chatFilter.test(message)) {
       testing && console.log(message);
       return;
@@ -339,6 +340,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
   let chatLine = document.createElement('div');
   chatLine_.classList.add('chat-line');
   chatLine.classList.add('chat-line-inner');
+  if (data['first-msg'] === true) chatLine.classList.add('highlight-message');
   chatLine_.appendChild(chatLine);
 
   if (chan) {
@@ -396,12 +398,26 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       const randomColor = Math.floor(Math.random() * randomcolors.length);
       userColors[data.name] = randomcolors[randomColor];
     }
+    if (data.color === null) {
+      const randomColor = Math.floor(Math.random() * randomcolors.length);
+      data.color = randomcolors[randomColor];
+    }
     if (typeof data.color == 'string') {
-    nameEle.style.color = adjuster.process(data.color);
-    
+      if (width) {
+        nameEle.style.color = adjuster.process(data.color);
+        console.log(nameEle.style.color);
+      }
+      nameEle.style.color = data.color;
     } else {
       nameEle.style.color = userColors[data.name];
     }
+
+    let highlightedMessage = document.createElement('div');
+    highlightedMessage.classList.add('highlighted-message');
+    let highlightedMessageText = document.createElement('span');
+    highlightedMessageText.classList.add('highlighted-message-text');
+    highlightedMessageText.innerText = "First Time Chatter";
+    highlightedMessage.appendChild(highlightedMessageText);
 
     let colonEle = document.createElement('span');
     colonEle.classList.add('message-colon');
@@ -410,13 +426,14 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     messageEle.classList.add('message');
     let finalMessage = handleEmotes(chan, data.emotes || {}, message);
     addEmoteDOM(messageEle, finalMessage);
-
+    if (data['first-msg'] === true) chatLine.appendChild(highlightedMessage);
     if (chatchannel.length > 1) chatLine.appendChild(chanEle);
     chatLine.appendChild(badgeEle);
     // chatLine.appendChild(spaceEle);
     chatLine.appendChild(nameEle);
     chatLine.appendChild(colonEle);
     chatLine.appendChild(messageEle);
+    console.log(chatLine);
   } else
   if (type === 'admin') {
     chatLine_.classList.add('admin');
