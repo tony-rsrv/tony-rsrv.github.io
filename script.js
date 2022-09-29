@@ -196,7 +196,6 @@ function addListeners() {
     showMessage({ type: 'alert', message: chatMessage });
   }
   function handleSubGift (channel, username, streakMonths, recipient, methods, userstate) {
-    console.log(userstate);
     let subTier = methods.plan;
     if (subTier == 1000) {
       subTier = '1';
@@ -207,7 +206,7 @@ function addListeners() {
     if (subTier == 3000) {
       subTier = '3';
     }
-    let chatMessage = username + " has gifted a Tier " + subTier + " subscription to " + recipient + (chatchannel.length <= 1 ? "" : " in " + channel + "'s channel");
+    let chatMessage = username + " has gifted a Tier " + subTier + " subscription to " + recipient + (chatchannel.length <= 1 ? "" : " in " + channel) + "'s channel";
     if(userstate["msg-param-sender-count"]) {
       chatMessage = chatMessage + ". They have gifted a total of " + (userstate["msg-param-sender-count"] === true ? "1" : userstate["msg-param-sender-count"]) + " in the channel."
     }
@@ -258,11 +257,6 @@ function addListeners() {
     showMessage({ type: 'alert', message: chatMessage });
   }
 
-  function handleSubMysteryGift(channel, username, numbOfSubs, methods, userstate) {
-    console.log(userstate['system-msg']);
-    console.log(numbOfSubs);
-  }
-
   client.on('message', handleMessage);
   client.on('cheer', handleCheer);
   if (alerts) {
@@ -272,8 +266,7 @@ function addListeners() {
   client.on('subgift', handleSubGift);
   client.on('anongiftpaidupgrade', handleAnonUpgrade);
   client.on('giftpaidupgrade', handleUpgrade);
-  client.on('primesubupgrade', handlePrimeUpgrade);
-  client.on('submysterygift', handleSubMysteryGift);
+  client.on('primesubupgrade', handlePrimeUpgrade)
   }
 
   client.on('join', (channel, username, self) => {
@@ -471,8 +464,8 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       }
     }, timeout);
   }
-   setTimeout(() => window.scrollTo(0,document.body.scrollHeight + 10000), 200);
-   window.scrollTo(0,document.body.scrollHeight + 10000)
+  setTimeout(() => window.scrollTo(0,document.body.scrollHeight + 10000), 200);
+  window.scrollTo(0,document.body.scrollHeight + 10000)
 }
 
 function handleEmotes(channel, emotes, message) {

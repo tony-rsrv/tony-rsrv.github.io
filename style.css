@@ -27,12 +27,12 @@ body {
 .chat-line {
   overflow: hidden;
   max-height: 0px;
-  /* transition: opacity 2s, max-height 1s, margin-top 1s; */
+  transition: opacity 2s, max-height 1s, margin-top 1s;
 }
 .chat-line.visible {
   margin-top: 10px;
   max-height: 500px;
-  /* transition: opacity 2s, max-height 1s, margin-top 300ms; */
+  transition: opacity 2s, max-height 1s, margin-top 300ms;
 }
 .chat-line .chat-line-inner {
   padding: 2px;
@@ -49,7 +49,6 @@ body {
 
 .user-name {
   color: inherit;
-  font-weight: 700;
 }
 
 .message img.emoji {
@@ -63,7 +62,7 @@ body {
 }
 
 .full-width {
-  width: auto!important;
+  width: 100%!important;
   font-size: 2.1vh;
 }
 
@@ -101,17 +100,4 @@ img {
 
 .highlight-chat-message {
   background-color: #755ebc;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-}
-
-.scroller {
-  display: flex;
-  flex-direction: column-reverse;
-  overflow-y: auto;
 }
