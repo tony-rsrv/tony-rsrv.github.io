@@ -133,7 +133,6 @@ function addListeners() {
   });
 
   function handleMessage(channel, userstate, message, fromSelf) {
-    console.log(userstate);
     if (chatFilter.test(message)) {
       testing && console.log(message);
       return;
@@ -403,11 +402,7 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
       data.color = randomcolors[randomColor];
     }
     if (typeof data.color == 'string') {
-      if (width) {
-        nameEle.style.color = adjuster.process(data.color);
-        console.log(nameEle.style.color);
-      }
-      nameEle.style.color = data.color;
+      nameEle.style.color = adjuster.process(data.color);
     } else {
       nameEle.style.color = userColors[data.name];
     }
@@ -434,7 +429,6 @@ function showMessage({ chan, type, message = '', data = {}, timeout = 0, attribs
     chatLine.appendChild(nameEle);
     chatLine.appendChild(colonEle);
     chatLine.appendChild(messageEle);
-    console.log(chatLine);
   } else
   if (type === 'admin') {
     chatLine_.classList.add('admin');
