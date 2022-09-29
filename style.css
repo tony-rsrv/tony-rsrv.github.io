@@ -49,6 +49,7 @@ body {
 
 .user-name {
   color: inherit;
+  font-weight: 600;
 }
 
 .message img.emoji {
@@ -62,7 +63,7 @@ body {
 }
 
 .full-width {
-  width: 100%!important;
+  width: auto!important;
   font-size: 2.1vh;
 }
 
